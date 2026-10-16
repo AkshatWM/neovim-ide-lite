@@ -119,6 +119,6 @@ Leader key: `<Space>`
 
 ## License
 
-No license specified yet.
+This project is licensed under the [MIT License](LICENSE).
 ```<|end|><|start|>write to=assistant<|channel|>analysis<|message|>We included a false "Editor j/k Normal motion" odd. Could remove. Need trim inaccurate. Also "Cursor jump top/bottom" maybe unnecessary filler. Better remove that block to avoid nonsense. Let's edit README remove those two lines. Use edit.<|end|><|start|> fileList <|constrain|>xml<|message|><rfl:parameter name="path">
 C:\Users\aksha\AppData\Local\nvim\README.md
