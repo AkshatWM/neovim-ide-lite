@@ -4,11 +4,11 @@ return {
   event = "VeryLazy",
   opts = {
     options = {
-      theme = "auto",
+      theme = "auto", -- borrow colors from tokyonight
       icons_enabled = true,
-      section_separators = { left = "", right = "" },
-      component_separators = { left = "", right = "" },
-      globalstatus = true,
+      section_separators = { left = "", right = "" }, -- fat arrows between groups
+      component_separators = { left = "", right = "" }, -- thin arrows inside a group
+      globalstatus = true, -- one bar across all splits
       disabled_filetypes = { statusline = { "lazy" } },
     },
     sections = {

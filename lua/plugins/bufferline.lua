@@ -3,6 +3,7 @@ return {
   version = "*",
   opts = {
     options = {
+      -- Pushes the tab bar to the right when your nvim-tree sidebar is open
       offsets = {
         {
           filetype = "NvimTree",

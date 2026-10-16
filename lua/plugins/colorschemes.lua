@@ -7,6 +7,7 @@ return {
       vim.cmd.colorscheme("tokyonight")
     end,
   },
+
   {
     "catppuccin/nvim",
     name = "catppuccin",
