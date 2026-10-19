@@ -116,4 +116,3 @@ Leader key: `Space`
 ## License
 
 MIT License. See [LICENSE](LICENSE).
-```
