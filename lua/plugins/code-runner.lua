@@ -1,5 +1,32 @@
+local is_windows = vim.fn.has("win32") == 1
+
+local function build(compiler, std)
+  if is_windows then
+    return string.format(
+      "cd /d $dir && %s -std=%s -Wall -Wextra -g $fileName -o $fileNameWithoutExt.exe && $fileNameWithoutExt.exe",
+      compiler,
+      std
+    )
+  end
+
+  return string.format(
+    "cd $dir && %s -std=%s -Wall -Wextra -g $fileName -o $fileNameWithoutExt && ./$fileNameWithoutExt",
+    compiler,
+    std
+  )
+end
+
+local function rust()
+  if is_windows then
+    return "cd /d $dir && rustc $fileName -o $fileNameWithoutExt.exe && $fileNameWithoutExt.exe"
+  end
+
+  return "cd $dir && rustc $fileName -o $fileNameWithoutExt && ./$fileNameWithoutExt"
+end
+
 return {
   "CRAG666/code_runner.nvim",
+  cmd = { "RunCode", "RunClose" },
   opts = {
     mode = "term",
     focus = true,
@@ -9,12 +36,11 @@ return {
       size = 12,
     },
     filetype = {
-      -- Uses 'cd /d' so Windows switches drives properly, compiles, and runs the .exe
-      c = "cd /d $dir && gcc \"$fileName\" -o \"$fileNameWithoutExt.exe\" && \"$fileNameWithoutExt.exe\"",
-      cpp = "cd /d $dir && g++ -std=c++20 \"$fileName\" -o \"$fileNameWithoutExt.exe\" && \"$fileNameWithoutExt.exe\"",
-      python = "python -u \"$file\"",
-      javascript = "node \"$file\"",
-      rust = "cd /d $dir && rustc \"$fileName\" && \"$fileNameWithoutExt.exe\"",
+      c = build("gcc", "c17"),
+      cpp = build("g++", "c++20"),
+      rust = rust(),
+      python = "python -u $file",
+      javascript = "node $file",
     },
   },
 }

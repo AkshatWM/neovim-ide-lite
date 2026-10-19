@@ -21,9 +21,35 @@ vim.opt.shiftwidth = 4 -- Amount to indent with <<, >>, and Enter
 vim.opt.tabstop = 4 -- How many spaces a Tab character displays as
 vim.opt.softtabstop = 4 -- How many spaces Tab/Backspace feels like in Insert mode
 vim.opt.smartindent = true -- Smart auto-indenting on new lines
-vim.opt.cindent = true
-vim.wo.relativenumber = true
+vim.opt.number = true
+vim.opt.relativenumber = true
 vim.opt.cursorline = true
 vim.opt.clipboard = "unnamedplus"
 vim.opt.ignorecase = true
+vim.opt.smartcase = true
 vim.opt.termguicolors = true
+
+-- Comfort while editing
+vim.opt.scrolloff = 8
+vim.opt.signcolumn = "yes" -- Keeps diagnostics from shifting the text
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+vim.opt.updatetime = 250 -- Faster diagnostics and hover
+vim.opt.undofile = true
+
+-- Diagnostics
+vim.diagnostic.config({
+  virtual_text = { spacing = 2, prefix = "●" },
+  severity_sort = true,
+  float = { border = "rounded", source = true },
+})
+
+-- C and C++ specifics
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "c", "cpp" },
+  callback = function()
+    vim.bo.cindent = true
+    vim.bo.textwidth = 100
+    vim.wo.colorcolumn = "100"
+  end,
+})
