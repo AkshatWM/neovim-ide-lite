@@ -81,12 +81,41 @@ vim.lsp.config("basedpyright", {
         autoSearchPaths = true,
         useLibraryCodeForTypes = true,
         diagnosticMode = "openFilesOnly",
+        -- Ruff owns these checks and offers quick fixes for them.
+        diagnosticSeverityOverrides = {
+          reportUnusedImport = "none",
+          reportUnusedVariable = "none",
+        },
       },
     },
   },
 })
 
-vim.lsp.enable({ "clangd_c", "clangd_cpp", "basedpyright" })
+-- Ruff provides formatting, linting, and import sorting for Python.
+vim.lsp.config("ruff", {
+  cmd = { "ruff", "server" },
+  filetypes = { "python" },
+  root_markers = {
+    "pyproject.toml",
+    "ruff.toml",
+    ".ruff.toml",
+    "setup.py",
+    "setup.cfg",
+    "requirements.txt",
+    "Pipfile",
+    ".git",
+  },
+  init_options = {
+    settings = {
+      lint = {
+        -- basedpyright reports undefined names with better type context.
+        ignore = { "F821" },
+      },
+    },
+  },
+})
+
+vim.lsp.enable({ "clangd_c", "clangd_cpp", "basedpyright", "ruff" })
 
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(ev)

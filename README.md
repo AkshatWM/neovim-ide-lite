@@ -11,6 +11,7 @@ A lightweight, fast Neovim configuration built with [lazy.nvim](https://github.c
 - LSP via Neovim's built-in client (`vim.lsp.config` / `vim.lsp.enable`)
 - `clangd` for C and C++, with per-language standards (`C17` / `C++20`)
 - `basedpyright` for Python type checking and completion
+- `ruff` for Python formatting, linting, and import sorting
 - Inline diagnostics, hover docs, rename, code actions, and formatting
 - Save-and-run runner for C, C++, Rust, Python, and JavaScript
 - Clean status line via `lualine`
@@ -42,6 +43,7 @@ Python
 
 - `python` on `PATH`
 - `basedpyright` (install it once with `:Mason`)
+- `ruff` (install it once with `:Mason`)
 
 Other languages (only needed if you run those files)
 
@@ -144,9 +146,16 @@ Projects with a `compile_commands.json` (for example from CMake with `-DCMAKE_EX
 
 Formatting is handled by `clangd` itself, so no separate `clang-format` binary is required.
 
-### Python language server
+### Python language servers
 
-`basedpyright` starts automatically for Python buffers and uses `standard` type-checking mode. It detects common virtual environments by itself; for project-specific settings, use a `pyrightconfig.json` or a `[tool.basedpyright]` section in `pyproject.toml`.
+Python buffers use two servers:
+
+- `basedpyright` for type checking and completion, in `standard` mode.
+- `ruff` for linting, formatting, and import sorting.
+
+`<leader>cf` formats Python with Ruff, and `<leader>ca` offers Ruff's fixes (including "Organize Imports" and "Fix all"). Ruff's unused import/variable checks take over from basedpyright so each issue is reported once, with a quick fix attached.
+
+Both servers detect common virtual environments automatically. For project-specific settings, use a `pyrightconfig.json` / `pyproject.toml` for basedpyright and a `ruff.toml` or `[tool.ruff]` section for Ruff. Python files also get an 88-column guide to match Ruff's default line length.
 
 ## Structure
 
