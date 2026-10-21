@@ -10,6 +10,14 @@ map({ "n", "i" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
 -- Ctrl-A select the whole file (replaces the default increment-number behavior)
 map("n", "<C-a>", "ggVG", { desc = "Select all" })
 
+-- Alt+Up / Alt+Down to move the current line or selection (like VS Code)
+map("n", "<A-Up>", "<cmd>m .-2<cr>==", { desc = "Move line up", silent = true })
+map("n", "<A-Down>", "<cmd>m .+1<cr>==", { desc = "Move line down", silent = true })
+map("i", "<A-Up>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move line up", silent = true })
+map("i", "<A-Down>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move line down", silent = true })
+map("v", "<A-Up>", ":m '<-2<cr>gv=gv", { desc = "Move selection up", silent = true })
+map("v", "<A-Down>", ":m '>+1<cr>gv=gv", { desc = "Move selection down", silent = true })
+
 -- Tab / Shift+Tab to indent highlighted blocks without losing selection
 map("v", "<Tab>", ">gv", { desc = "Indent selection" })
 map("v", "<S-Tab>", "<gv", { desc = "Outdent selection" })

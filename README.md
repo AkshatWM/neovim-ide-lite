@@ -78,13 +78,14 @@ Leader key: `Space`
 
 ### General
 
-| Key                  | Action             |
-| -------------------- | ------------------ |
-| `Space`              | Leader key         |
-| `Ctrl-s`             | Save file          |
-| `Ctrl-a`             | Select whole file  |
-| `Tab` (Visual)       | Indent selection   |
-| `Shift-Tab` (Visual) | Outdent selection  |
+| Key                   | Action                 |
+| --------------------- | ---------------------- |
+| `Space`               | Leader key             |
+| `Ctrl-s`              | Save file              |
+| `Ctrl-a`              | Select whole file      |
+| `Alt-Up` / `Alt-Down` | Move line or selection |
+| `Tab` (Visual)        | Indent selection       |
+| `Shift-Tab` (Visual)  | Outdent selection      |
 
 ### File Explorer
 
@@ -132,6 +133,7 @@ Leader key: `Space`
 ## Notes
 
 - `Tab` keeps the visual selection while indenting.
+- `Alt-Up` / `Alt-Down` need the terminal to forward Alt+arrow keys (Windows Terminal does by default).
 - `blink.cmp` uses the `super-tab` keymap preset.
 - `Leader` and `LocalLeader` are both `Space`.
 - Diagnostics are shown inline and sorted by severity.
@@ -153,7 +155,7 @@ Python buffers use two servers:
 - `basedpyright` for type checking and completion, in `standard` mode.
 - `ruff` for linting, formatting, and import sorting.
 
-`<leader>cf` formats Python with Ruff, and `<leader>ca` offers Ruff's fixes (including "Organize Imports" and "Fix all"). Ruff's unused import/variable checks take over from basedpyright so each issue is reported once, with a quick fix attached.
+`<leader>cf` formats Python with Ruff, and `<leader>ca` offers Ruff's fixes (including "Organize Imports" and "Fix all"). Ruff's unused import/variable checks take over from basedpyright so each issue is reported once, with a quick fix attached. Syntax errors come from basedpyright, and Ruff's parser errors are disabled to avoid duplicates.
 
 Both servers detect common virtual environments automatically. For project-specific settings, use a `pyrightconfig.json` / `pyproject.toml` for basedpyright and a `ruff.toml` or `[tool.ruff]` section for Ruff. Python files also get an 88-column guide to match Ruff's default line length.
 

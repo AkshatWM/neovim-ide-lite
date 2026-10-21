@@ -107,6 +107,8 @@ vim.lsp.config("ruff", {
   },
   init_options = {
     settings = {
+      -- basedpyright already reports syntax errors, so Ruff skips them.
+      showSyntaxErrors = false,
       lint = {
         -- basedpyright reports undefined names with better type context.
         ignore = { "F821" },
