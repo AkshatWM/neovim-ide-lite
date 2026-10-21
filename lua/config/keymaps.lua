@@ -7,6 +7,9 @@ map("n", "<leader>o", "<cmd>NvimTreeFindFile<CR>", { desc = "Reveal current file
 -- Ctrl-S save
 map({ "n", "i" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
 
+-- Ctrl-A select the whole file (replaces the default increment-number behavior)
+map("n", "<C-a>", "ggVG", { desc = "Select all" })
+
 -- Tab / Shift+Tab to indent highlighted blocks without losing selection
 map("v", "<Tab>", ">gv", { desc = "Indent selection" })
 map("v", "<S-Tab>", "<gv", { desc = "Outdent selection" })

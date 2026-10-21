@@ -1,6 +1,6 @@
 # Neovim IDE Lite
 
-A lightweight, fast Neovim configuration built with [lazy.nvim](https://github.com/folke/lazy.nvim), focused on a VS Code-like workflow: file tree, fuzzy finding, live grep, completion, and first-class C/C++ tooling without the bulk.
+A lightweight, fast Neovim configuration built with [lazy.nvim](https://github.com/folke/lazy.nvim), focused on a VS Code-like workflow: file tree, fuzzy finding, live grep, completion, first-class C/C++ tooling, and Python type checking without the bulk.
 
 ## Features
 
@@ -10,6 +10,7 @@ A lightweight, fast Neovim configuration built with [lazy.nvim](https://github.c
 - Snippet-aware autocompletion with `blink.cmp`
 - LSP via Neovim's built-in client (`vim.lsp.config` / `vim.lsp.enable`)
 - `clangd` for C and C++, with per-language standards (`C17` / `C++20`)
+- `basedpyright` for Python type checking and completion
 - Inline diagnostics, hover docs, rename, code actions, and formatting
 - Save-and-run runner for C, C++, Rust, Python, and JavaScript
 - Clean status line via `lualine`
@@ -37,10 +38,14 @@ C / C++
 - `clangd` (install it once with `:Mason`, or provide it on `PATH`)
 - `gdb` (optional, for debugging outside Neovim)
 
+Python
+
+- `python` on `PATH`
+- `basedpyright` (install it once with `:Mason`)
+
 Other languages (only needed if you run those files)
 
 - `rustc` for Rust
-- `python` for Python
 - `node` for JavaScript
 
 Optional tools for Mason installs
@@ -75,6 +80,7 @@ Leader key: `Space`
 | -------------------- | ------------------ |
 | `Space`              | Leader key         |
 | `Ctrl-s`             | Save file          |
+| `Ctrl-a`             | Select whole file  |
 | `Tab` (Visual)       | Indent selection   |
 | `Shift-Tab` (Visual) | Outdent selection  |
 
@@ -104,7 +110,7 @@ Leader key: `Space`
 | `Ctrl-k`         | Move from the runner up to the code   |
 | `Ctrl-j`         | Move from the code down to the runner |
 
-### C / C++ (LSP)
+### LSP (C, C++, Python)
 
 | Key          | Action                                   |
 | ------------ | ---------------------------------------- |
@@ -137,6 +143,10 @@ Leader key: `Space`
 Projects with a `compile_commands.json` (for example from CMake with `-DCMAKE_EXPORT_COMPILE_COMMANDS=ON`) or a `.clangd` file get exact flags from those files. Without one, `clangd` uses fallback flags. On Windows those fallback flags also include the MinGW system include directories, read from `g++` at the moment the server starts, so `<stdio.h>` and `<iostream>` resolve out of the box.
 
 Formatting is handled by `clangd` itself, so no separate `clang-format` binary is required.
+
+### Python language server
+
+`basedpyright` starts automatically for Python buffers and uses `standard` type-checking mode. It detects common virtual environments by itself; for project-specific settings, use a `pyrightconfig.json` or a `[tool.basedpyright]` section in `pyproject.toml`.
 
 ## Structure
 

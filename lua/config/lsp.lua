@@ -70,7 +70,23 @@ end
 configure("clangd_c", "c", "c17")
 configure("clangd_cpp", "cpp", "c++20")
 
-vim.lsp.enable({ "clangd_c", "clangd_cpp" })
+vim.lsp.config("basedpyright", {
+  cmd = { "basedpyright-langserver", "--stdio" },
+  filetypes = { "python" },
+  root_markers = { "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", "Pipfile", ".git" },
+  settings = {
+    basedpyright = {
+      analysis = {
+        typeCheckingMode = "standard",
+        autoSearchPaths = true,
+        useLibraryCodeForTypes = true,
+        diagnosticMode = "openFilesOnly",
+      },
+    },
+  },
+})
+
+vim.lsp.enable({ "clangd_c", "clangd_cpp", "basedpyright" })
 
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(ev)
