@@ -49,8 +49,6 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = { "c", "cpp" },
   callback = function()
     vim.bo.cindent = true
-    vim.bo.textwidth = 100
-    vim.wo.colorcolumn = "100"
   end,
 })
 
@@ -58,7 +56,31 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "python",
   callback = function()
-    vim.bo.textwidth = 88
-    vim.wo.colorcolumn = "88"
+    -- Python indentation comes from 'indentexpr', not 'smartindent'.
+    vim.bo.smartindent = false
   end,
+})
+
+-- 'colorcolumn' is window-local, so it does not follow the buffer. Apply it
+-- from the filetype and reset it for everything else (including the code
+-- runner terminal), otherwise "88" leaks into unrelated buffers and splits.
+local width_by_filetype = {
+  python = 88,
+  c = 100,
+  cpp = 100,
+}
+
+local function apply_text_width()
+  local width = width_by_filetype[vim.bo.filetype]
+
+  if width then
+    vim.bo.textwidth = width
+    vim.wo.colorcolumn = tostring(width)
+  else
+    vim.wo.colorcolumn = ""
+  end
+end
+
+vim.api.nvim_create_autocmd({ "FileType", "BufWinEnter" }, {
+  callback = apply_text_width,
 })
